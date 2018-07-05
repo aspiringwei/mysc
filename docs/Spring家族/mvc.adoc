@@ -1,0 +1,41 @@
+#### DispatcherServlet
+
+
+- Properties
+加载配置文件使用 参考PropertiesLoaderUtils
+```java
+-- HttpServletBean
+init()
+-- AbstractApplicationContext
+
+-- GenericApplicationListenerAdapter
+private final ApplicationListener delegate;
+public GenericApplicationListenerAdapter(ApplicationListener delegate) {
+    Assert.notNull(delegate, "Delegate listener must not be null");
+    this.delegate = delegate;
+}
+public void onApplicationEvent(ApplicationEvent event) {
+    this.delegate.onApplicationEvent(event);
+}
+
+-- FrameworkServlet
+initServletBean()
+public void onApplicationEvent(ContextRefreshedEvent event) {
+    this.refreshEventReceived = true;
+    this.onRefresh(event.getApplicationContext());
+}
+
+-- DispatcherServlet
+protected void onRefresh(ApplicationContext context) {
+    this.initStrategies(context);
+}
+```
+1. multipartResolver (没有默认)
+2. localeResolver
+3. themeResolver
+4. handlerMapping -list
+5. handlerAdapter -list
+6. handlerExceptionResolver -list
+7. viewNameTranslator
+8. viewResolver -list
+9. flashMapManager
