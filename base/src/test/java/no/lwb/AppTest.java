@@ -15,6 +15,7 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
+        long a = 8446744073709551616L;
         assertTrue( true );
     }
 }
