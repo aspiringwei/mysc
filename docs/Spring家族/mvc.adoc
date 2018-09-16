@@ -1,4 +1,4 @@
-#### DispatcherServlet
+= DispatcherServlet
 
 
 - Properties
@@ -8,7 +8,10 @@
 init()
 -- AbstractApplicationContext
 
--- GenericApplicationListenerAdapter
+
+   5
+
+-- GenericApplicationL istenerAdapter
 private final ApplicationListener delegate;
 public GenericApplicationListenerAdapter(ApplicationListener delegate) {
     Assert.notNull(delegate, "Delegate listener must not be null");

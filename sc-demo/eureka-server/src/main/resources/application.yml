@@ -1,0 +1,51 @@
+spring:
+  profiles:
+    active: dev-center
+  application:
+    name: EurekaServerCluster
+eureka:
+  server:
+    enableSelfPreservation: false # close self preservation
+
+
+# standalone mode
+---
+spring:
+  profiles: dev-center
+server:
+  port: 8761
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+# peer Awareness
+---
+spring:
+  profiles: dev-center-1
+server:
+  port: 8762
+eureka:
+  instance:
+    hostname: dev-center-1
+  client:
+    serviceUrl:
+      defaultZone: http://dev-center-2:8763/eureka/
+
+---
+spring:
+  profiles: dev-center-2
+server:
+  port: 8763
+eureka:
+  instance:
+    hostname: dev-center-2
+  client:
+    serviceUrl:
+      defaultZone: http://dev-center-1:8762/eureka/

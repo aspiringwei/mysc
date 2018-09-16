@@ -1,0 +1,26 @@
+= spring boot 系列
+
+
+== web 服务
+
+=== http://www.w3.org/TR/cors[跨域访问]
+
+1. spring V4.2+ Support for CORS (Cross-Origin Resource Sharing)
+2. 使用
+
+=== model 验证
+
+=== 异常处理
+1. 全局异常处理
+
+=== 自动配置 starter
+1. 理解
+2. 原理
+3. 栗子
+
+=== 集成
+1. mysql 等数据库
+2. redis 等缓存
+3. ZooKeeper 等中间件
+4. activeMQ 等消息队列
+5. swagger API 文档

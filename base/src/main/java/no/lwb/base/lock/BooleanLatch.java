@@ -2,6 +2,7 @@ package no.lwb.base.lock;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
+
 public class BooleanLatch {
 
     private static class Sync extends AbstractQueuedSynchronizer {

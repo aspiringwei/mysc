@@ -111,6 +111,13 @@ retrieve检索
         ```
         ## SUNIONSTORE 合并多个 sets 并存储到另外一个 set 中
         ##  SPOP 随机删除一个元素 SRANDMEMBER 随机返回不删除元素
+        ## sadd key member|[member ...] 添加 member1 member2
+        ## smembers key 查询
+        ##  srem key member 删除
+        ##  scard key 个数
+        ##  sunion [key ...] 并集
+        ##  sdiff [key ...] 差集
+        ##  sdiffstore destKey [key ...] 差集存储
         > sadd myset 1 2 3
         (integer) 3
         > smembers myset
@@ -179,9 +186,11 @@ retrieve检索
 - However the expire time resolution is always 1 millisecond.
 - Information about expires are replicated and persisted on disk, the time virtually passes when your Redis server remains stopped (this means that Redis saves the date at which a key will expire).
     ```shell
+    ## expireAt key timestamp
+    ## expire key seconds 设置过期时间
     > set key 100 ex 10
     OK
-    ## ttl 命令用来检查 key 剩余存活时间
+    ## ttl 命令用来检查 key 剩余存活时间 key不存在-2，没有设置时间-1
     > ttl key
     (integer) 9
     ```
@@ -194,3 +203,11 @@ Note: 0 and -1 means from element index 0 to the last element (-1 works here jus
 - **Notification** Sentinel can notify the system administrator, another computer programs, via an API, that something is wrong with one of the monitored Redis instances.
 - **Automatic failover** If a master is not working as expected, Sentinel can start a failover process where a slave is promoted to master, the other additional slaves are reconfigured to use the new master, and the applications using the Redis server informed about the new address to use when connecting.
 - **Configuration provider.** Sentinel acts as a source of authority for clients service discovery: clients connect to Sentinels in order to ask for the address of the current Redis master responsible for a given service. If a failover occurs, Sentinels will report the new address.
+
+
+
+#### 安装使用
+
+1. [安装问题](https://blog.csdn.net/wzygis/article/details/51705559)
+
+./redis-cli -h ip -p port -a auth 

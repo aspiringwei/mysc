@@ -2,6 +2,7 @@ package no.lwb;
 
 /**
  * Hello world!
+ * @author
  *
  */
 public class App 
