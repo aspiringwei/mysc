@@ -6,7 +6,8 @@ package no.lwb.listen;
  * @author WeiBin Lin
  * @since 2018/9/19
  */
-public interface MyscEventPublisher {
+public interface BaseEventPublisher {
 
-    void publishEvent(Object event);
+    void publishEvent(BaseEventObject event);
+
 }

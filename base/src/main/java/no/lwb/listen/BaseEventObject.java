@@ -6,7 +6,7 @@ import java.util.EventObject;
  * @author WeiBin Lin
  * @since 2018/9/19
  */
-public class MethodMonitorEvent extends EventObject {
+public class BaseEventObject extends EventObject {
 
     private final Long timestamp;
 
@@ -21,7 +21,7 @@ public class MethodMonitorEvent extends EventObject {
      * @param source The object on which the Event initially occurred.
      * @throws IllegalArgumentException if source is null.
      */
-    public MethodMonitorEvent(Object source) {
+    public BaseEventObject(Object source) {
         super(source);
         this.timestamp = System.currentTimeMillis();
     }
