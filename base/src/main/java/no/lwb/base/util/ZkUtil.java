@@ -1,4 +1,4 @@
-package no.lwb.util;
+package no.lwb.base.util;
 
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;

@@ -1,4 +1,4 @@
-package no.lwb.util;
+package no.lwb.base.util;
 
 import java.io.IOException;
 import java.io.InputStream;

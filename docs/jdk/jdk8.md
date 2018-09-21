@@ -34,3 +34,6 @@ http://openjdk.java.net/projects/jdk8/features
 7、Optional 类 − Optional 类已经成为 Java 8 类库的一部分，用来解决空指针异常。
 8、Nashorn, JavaScript 引擎 − Java 8提供了一个新的Nashorn javascript引擎，它允许我们在JVM上运行特定的javascript应用。
 ```
+
+
+https://docs.oracle.com/javase/8/docs/

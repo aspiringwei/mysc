@@ -1,4 +1,4 @@
-package no.lwb.vo;
+package no.lwb.base.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

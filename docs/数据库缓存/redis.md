@@ -9,7 +9,7 @@
 
 #### [数据结构](https://redis.io/topics/data-types-intro) 
 
-1. strings 字符串
+1. strings 字符串 动态字符串 类似 java 的 ArrayList
     >二级制安全的字符串 Binary-safe strings. 
     
     1. 命令 help @string
@@ -20,11 +20,11 @@
           since: 1.3.3
         
           DECR key
-          summary: Decrement the integer value of a key by one 递减1
+          summary: Decrement the integer value of a key by one 递减1 [计数]
           since: 0.07
         
           DECRBY key decrement
-          summary: Decrement the integer value of a key by the given number 递减给定值
+          summary: Decrement the integer value of a key by the given number 递减给定值 [计数]
           since: 0.07
         
           GET key
@@ -40,19 +40,19 @@
           since: 0.091
         
           INCR key
-          summary: Increment the integer value of a key by one 递增1
+          summary: Increment the integer value of a key by one 递增1 [计数]
           since: 0.07
         
           INCRBY key increment
-          summary: Increment the integer value of a key by the given number 递增给定值
+          summary: Increment the integer value of a key by the given number 递增给定值 [计数]
           since: 0.07
         
           MGET key [key ...]
-          summary: Get the values of all the given keys 获取所有给定key的值
+          summary: Get the values of all the given keys 获取所有给定key的值 [批量]
           since: 0.07
         
           MSET key value [key value ...]
-          summary: Set multiple keys to multiple values 给多个key设置多个值
+          summary: Set multiple keys to multiple values 给多个key设置多个值 [批量]
           since: 1.001
         
           MSETNX key value [key value ...]
@@ -95,7 +95,7 @@
         - key指定过期时间 setex
         - 不存在设值 setnx
     
-2. hashes 散列
+2. hashes 散列/字典 类似 java 的 HashMap
     >which are maps composed of fields associated with values. 
     Both the field and the value are strings. 
     
@@ -154,7 +154,7 @@
     
     2. 使用场景 hash结构存储着结构化数据，方便操作指定字段
         
-3. lists 列表
+3. lists 列表 类似 java 的 LinkedList 增删O(1)/查询O(n)
     >按插入顺序排序的字符串元素集合，主要基于链表 collections of string elements sorted according to the order of insertion. 
     They are basically linked lists.  
     链表在头部 head 和尾部 tail 加入新元素的时间是常量固定的,查询慢，和数组相反  
@@ -211,7 +211,7 @@
           since: 0.07
         
           LTRIM key start stop
-          summary: Trim a list to the specified range
+          summary: Trim a list to the specified range 将列表修整到指定范围
           since: 0.07
         
           RPOP key
@@ -232,6 +232,7 @@
 
         ```
     2. 使用场景
+        - rpush/lpop 队列 右进左出; rpush/rpop 栈
         - 消息队列
         - LRANGE 分页查询
         - Remember the latest updates posted by users into a social network.
@@ -253,8 +254,8 @@
             2) "do_something"
            ```
 
-4. sets 唯一无序字符串集合
-    >不重复、无序的字符串元素的集合 collections of unique, unsorted(unordered) string elements.
+4. sets 唯一无序字符串集合 类似 java 的 HashSet 
+    >不重复、无序的字符串元素的集合 collections of unique, unsorted(unordered) string elements. 
     
     1. 命令 help @set
         ```bash
@@ -323,7 +324,7 @@
             (integer) 4
             ```
 
-5. sorted sets 有序集合 访问速度快，唯一性，不重复
+5. sorted sets 有序集合 访问速度快，唯一性，不重复 跳表
     > similar to Sets but where every string element is associated to a floating number value, called score. 
     The elements are always taken sorted by their score, so unlike Sets it is possible to retrieve a range of elements 
     (for example you may ask: give me the top 10, or the bottom 10).  
@@ -474,3 +475,5 @@ that Redis saves the date at which a key will expire).
 #### 其他命令学习
 1. help @generic
 2. help @server
+
+https://juejin.im/book/m/5afc2e5f6fb9a07a9b362527/section/5afc2e5f51882542714ff291

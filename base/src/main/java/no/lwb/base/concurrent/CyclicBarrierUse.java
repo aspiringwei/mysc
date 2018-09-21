@@ -1,7 +1,8 @@
 package no.lwb.base.concurrent;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
+import lombok.extern.log4j.Log4j2;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -10,9 +11,9 @@ import java.util.concurrent.CyclicBarrier;
  * @author WeiBin Lin
  * @since 2018/9/15
  */
+@Log4j2
 public class CyclicBarrierUse implements Runnable {
     
-    private static final Logger LOG = LoggerFactory.getLogger(CyclicBarrierUse.class);
 
     private String player;
 
@@ -27,19 +28,19 @@ public class CyclicBarrierUse implements Runnable {
     public void run() {
 
         try {
-            LOG.info("匹配玩家");
+            log.info("匹配玩家");
             cyclicBarrier.await();
-            LOG.info("选择角色");
+            log.info("选择角色");
             cyclicBarrier.await();
-            LOG.info("等待其他玩家");
+            log.info("等待其他玩家");
             cyclicBarrier.await();
-            LOG.info("开始游戏");
+            log.info("开始游戏");
 
         } catch (InterruptedException e) {
-            LOG.error("", e);
+            log.error("", e);
             Thread.currentThread().interrupt();
         } catch (BrokenBarrierException e) {
-            LOG.error("", e);
+            log.error("", e);
         }
 
     }

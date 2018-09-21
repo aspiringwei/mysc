@@ -1,6 +1,6 @@
 package no.lwb.base.concurrent.lock;
 
-import no.lwb.vo.Apple;
+import no.lwb.base.vo.Apple;
 
 import java.util.Map;
 import java.util.TreeMap;
