@@ -1,4 +1,4 @@
-package no.lwb.base.nio;
+package no.lwb.base.io.nio;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

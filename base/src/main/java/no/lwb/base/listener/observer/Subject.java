@@ -2,6 +2,7 @@ package no.lwb.base.listener.observer;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.concurrent.TimeUnit;

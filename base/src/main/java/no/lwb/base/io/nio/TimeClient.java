@@ -1,4 +1,4 @@
-package no.lwb.base.nio;
+package no.lwb.base.io.nio;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

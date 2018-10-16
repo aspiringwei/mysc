@@ -1,4 +1,4 @@
-package no.lwb.base.nio;
+package no.lwb.base.io.nio;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
