@@ -1,3 +1,5 @@
+https://dev.mysql.com/doc/refman/5.7/en/
+
 本节包含数据库三范式，关联查询，事务管理，索引优化
 
 
@@ -83,11 +85,24 @@ https://dev.mysql.com/doc/refman/8.0/en/mysql-indexes.html
     - 使用 join 从其他表检索数据 如果列声明为相同类型和大小可以更有效的使用索引 这种情况下，varchar(10)和char(10)是一样的
     - 排序、分组 使用索引可以避免优化器进行排序
     
+### 索引优化
+1. 在 where 和 order by 涉及的列建立索引
+2. 避免 select * 返回数据量太多及 orm 字段映射问题
+3. 避免在 where 字句中做 null 判断 is null/is not null
+4. 避免使用 != <> not in
+5. 避免在索引列使用函数
+6. 使用 exists 替换 in 提高效率
+7. 区分度高的列作为索引
+8. 最左匹配原则 联合索引遇到范围查询(between/>/</like)后停止匹配
+9. 使用同类型进行比较
+10. 连续数值使用between不用in
+
    
 参考学习：
   
 1. [数据库索引，到底是什么做的？](https://mp.weixin.qq.com/s/YMbRJwyjutGMD1KpI_fS0A)   
-   
+2.[mySql---数据库索引原理及优化](https://mp.weixin.qq.com/s/yPttZnuioV71a_qmE1P3ww)
+3. [索引、锁](https://mp.weixin.qq.com/s/FSyE7Tz5A-Rc1bkC-tDqvA)
    
    
 
@@ -116,3 +131,32 @@ https://dev.mysql.com/doc/refman/8.0/en/mysql-indexes.html
 3. 慢查询日志 设定阈值
 4. 二进制日志 所有的更改操作
 5. 事务日志
+
+
+
+
+mysql 性能优化
+1. https://mp.weixin.qq.com/s/Uib99Ogmjbs3Vym2vkXw5g
+2. https://mp.weixin.qq.com/s/8W5KQKuHyJd9BQDwu0uY5Q
+
+
+
+## 常用命令操作
+1. 数据库登录 mysql -uroot -p123456
+2. 查看数据库 show databases;
+3. 查看表结构信息 describe table_name;
+4. 帮助命令 ? 命令名称 eg: ? contents; ? show create table;...
+5. 查看状态 show status; show global status like 'Max_used_connections'
+6. 查看可设置的变量 show variables\G; show variables like '%max_con%';
+8. 查看进程连接 show full processlist;
+9. 执行过程分析 explain
+## 数据类型
+1. String type
+    1. char 固定长度 0~255 数据检索时remove trailing spaces
+    2. varchar 可变长度 0~65535 不考虑trailing spaces 使用1~2字节存储值的长度 <=255使用1字节否则2字节
+## 编码
+1. lantin1 1个字符1个字节
+2. gbk 1个字符2个字节
+3. utf8 1个字符3个字节
+
+使用整数存ip

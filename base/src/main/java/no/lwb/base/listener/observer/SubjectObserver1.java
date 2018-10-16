@@ -1,6 +1,5 @@
 package no.lwb.base.listener.observer;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
@@ -12,11 +11,11 @@ import java.util.Observer;
  * @author WeiBin Lin
  */
 @Slf4j
-public class SubjectObserver implements Observer {
+public class SubjectObserver1 implements Observer {
 
     private Observable observable;
 
-    public SubjectObserver(Observable observable) {
+    public SubjectObserver1(Observable observable) {
         this.observable = observable;
         observable.addObserver(this);
     }

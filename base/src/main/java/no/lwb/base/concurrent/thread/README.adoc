@@ -101,3 +101,11 @@ public ThreadPoolExecutor(int corePoolSize,
     this.handler = handler;
 }
 ```
+==== 主要参数 理解线程增长策略和拒绝策略
+corePoolSize: 核心线程池大小
+maximumPoolSize: 最大线程池大小
+keepAliveTime: 存活时间
+TimeUnit: 时间单位
+BlockingQueue: 阻塞队列 工作队列
+ThreadFactory: 线程工厂
+RejectedExecutionHandler: 拒绝策略

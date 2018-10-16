@@ -126,3 +126,10 @@ git 使用需要掌握的
 1. https://git-scm.com/book/zh/v2
 2. http://gitbook.liuhui998.com/
 3. https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+
+版本号相关::
+Release 表示 是正式的版本.
+RC stands for Release Candidate 表示 后选版本
+M stands for milestone 表示里程碑版本.
+一般而言, 稳定性由上而下, 依次降低.

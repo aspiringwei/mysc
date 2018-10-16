@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 import java.util.Observable;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author WeiBin Lin
@@ -20,15 +21,19 @@ public class Subject extends Observable {
      */
     public void saySomething(String message) {
         this.msg = message;
-        log.info("Subject singing::{}", message);
+
+        log.info("push 推----");
         setChanged();
-        // 推模型
         notifyObservers(message);
-        // 拉模型
-        notifyObservers();
-        if (hasChanged()) {
-            clearChanged();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            log.error("", e.getMessage());
+            Thread.currentThread().interrupt();
         }
+        log.info("pull 拉----");
+        setChanged();
+        notifyObservers();
     }
 
     public String getMsg() {

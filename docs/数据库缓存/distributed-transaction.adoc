@@ -1,0 +1,28 @@
+== ACID
+
+- atomicity 原子性
+- consistency 一致性
+- isolation 隔离性
+- durability 持久性
+
+== CAP
+
+- consistency 一致性
+- availability 可用性
+- partition tolerance 分区容错性
+
+== XA
+XA是X/Open CAE Specification (Distributed Transaction Processing)模型中定义的TM（Transaction Manager）与RM（Resource Manager）之间进行通信的接口。
+在XA规范中，数据库充当RM(Resource Manager)角色，应用需要充当TM(Transaction Manager)的角色，即生成全局的txId，调用XAResource接口，把多个本地事务协调为全局统一的分布式事务。
+
+
+== 2PC 两阶段提交
+prepare和commit/rollback
+记录redo/undo日志
+
+== TCC
+依赖消息
+
+== 参考文档
+
+https://mp.weixin.qq.com/s/hDXekJeVFfIG_i8xWqJHRA[分布式事务在Sharding-Sphere中的实现]
