@@ -38,3 +38,6 @@
 2. Security 安全框架 OAuth 2.0 授权框架
 3. Micrometer 监控指标的度量类库
 4. Redis 默认使用 https://github.com/lettuce-io/lettuce-core[Lettuce](可伸缩，线程安全) 替换掉 Jedis
+
+
+热部署 spring-cloaded

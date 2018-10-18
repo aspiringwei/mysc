@@ -3,13 +3,21 @@
 1. http://projects.spring.io/spring-cloud/
 2. 版本
 
-== 服务发现
+== 服务发现 注册中心
 1. Eureka
 2. Zookeeper
 3. Cloud Foundry
 4. Consul
 
 == 网关 gateway
+1. zuul
 
 == III. Spring Cloud Netflix
 1. 服务发现 Eureka 使用、原理
+
+
+defaultZone uri 间不能有空格
+
+
+
+2018-10-18 服务发现、服务调用、网关满足. 配置中心待完善

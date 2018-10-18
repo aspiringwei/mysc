@@ -154,6 +154,7 @@ mysql 性能优化
 1. String type
     1. char 固定长度 0~255 数据检索时remove trailing spaces
     2. varchar 可变长度 0~65535 不考虑trailing spaces 使用1~2字节存储值的长度 <=255使用1字节否则2字节
+    3. 通配符 4  
 ## 编码
 1. lantin1 1个字符1个字节
 2. gbk 1个字符2个字节

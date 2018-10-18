@@ -3,8 +3,9 @@ eureka:
     preferIpAddress: true
     instanceId: ${spring.cloud.client.ipAddress}:${server.port}
   client:
+#    registerWithEureka: false
     serviceUrl:
-      defaultZone: http://dev-center-1:8762/eureka/, http://dev-center-2:8763/eureka/ #  locate the Eureka server
+      defaultZone: http://dev-center-1:8762/eureka/,http://dev-center-2:8763/eureka/ #  locate the Eureka server
 
 spring:
   application:

@@ -1,0 +1,17 @@
+= spring cloud config
+
+https://cloud.spring.io/spring-cloud-config/#quick-start
+
+
+在分布式系统中为外化配置提供server/client-side支持
+
+== Spring Cloud Config Server
+1. 集中化管理外化配置 默认使用git 标记配置环境的版本
+
+
+== Spring Cloud Config Client
+
+学习两个例子
+
+- https://github.com/spring-cloud-samples/configserver
+- https://github.com/spring-cloud-samples/customers-stores

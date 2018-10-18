@@ -14,7 +14,7 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>学习*积累*成长</name>
+    <name>WeiBin Lin</name>
 
     <properties>
         <mysc.version>1.0.0</mysc.version>

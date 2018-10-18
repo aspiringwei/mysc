@@ -46,6 +46,7 @@ public class NIOServer extends Thread {
             while (true) {
                 // 阻塞等待的 channel
                 selector.select();
+
                 log.info("selected");
                 Set<SelectionKey> selectionKeySet = selector.selectedKeys();
                 Iterator<SelectionKey> selectionKeyIterator = selectionKeySet.iterator();

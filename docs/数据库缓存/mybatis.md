@@ -33,3 +33,7 @@ SqlSessionFactory 本身由 SqlSessionFactoryBuilder 创建，支持 XML、注�
          使用xml绑定到mapper接口请确保在适当的命名空间中有语句，另外在相同结构层次中的两个接口不能有相同的方法签名。如果一个mapper方法有多个参数，默认命名为
          '#{param1}，#{param2}',可以利用@Param("paramName") 改变名称。注解提供了一种有效的方法实现简单的映射语句且没有增加开销
          - 具体注解详见http://www.mybatis.org/mybatis-3/java-api.html 文末
+
+
+
+cacheEnabled 二级缓存

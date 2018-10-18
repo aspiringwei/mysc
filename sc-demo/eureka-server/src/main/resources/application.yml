@@ -5,6 +5,7 @@ spring:
     name: EurekaServerCluster
 eureka:
   server:
+    peerNodeReadTimeoutMs: 1000
     enableSelfPreservation: false # close self preservation
 
 
