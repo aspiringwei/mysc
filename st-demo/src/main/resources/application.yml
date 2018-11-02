@@ -2,5 +2,22 @@ spring:
   redis:
     host: 10.104.90.237
     database: 0
+  ## datasource config
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      username: root
+      password: 123456
+      jdbc-url: jdbc:mariadb://localhost:3306/lwb
+  ## default use memory database
+  test:
+    database:
+      replace: none
+
 server:
   port: 8888
+## log level for packages
+logging:
+  level:
+    root: error

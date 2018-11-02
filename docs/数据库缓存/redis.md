@@ -447,7 +447,7 @@ that Redis saves the date at which a key will expire).
     # redis 达到 maxmemory 如何选择要删除的内容
     # MAXMEMORY POLICY: how Redis will select what to remove when maxmemory
     # is reached? You can select among five behavior:
-    # :::淘汰策略::: Least recently used 最近最少使用
+    # :::淘汰策略  ::: Least recently used 最近最少使用
     # volatile-lru -> remove the key with an expire set using an LRU algorithm 使用LRU算法删除带有过期设置的key 【默认策略】 
     # allkeys-lru -> remove any key accordingly to the LRU algorithm 根据LRU算法删除任意key
     # volatile-random -> remove a random key with an expire set 随机删除带有过期设置的key

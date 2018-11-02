@@ -104,3 +104,6 @@ dynamicBpmnService
 [bpmn20](https://www.activiti.org/userguide/#bpmn20)
 [Activiti与BPMN2.0规范](http://www.jianshu.com/p/e25fdc595f86)
 [Activiti事件分类简介](http://www.bug315.com/article/163.htm)
+
+
+http://blog.csdn.net/u012373815/article/details/52092218

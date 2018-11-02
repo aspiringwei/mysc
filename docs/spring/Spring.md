@@ -13,13 +13,13 @@ DispatcherServletExtend
 
 ##### 事务管理
 - 事务传播机制(理解验证)
-    1. PROPAGATION_REQUIRED
-    2. PROPAGATION_SUPPORTS
-    3. PROPAGATION_MANDATORY
-    4. PROPAGATION_REQUIRES_NEW
-    5. PROPAGATION_NOT_SUPPORTED
-    6. PROPAGATION_NEVER
-    7. PROPAGATION_NESTED
+    1. PROPAGATION_REQUIRED 如果当前没有事务，就新建；如果存在，则加入
+    2. PROPAGATION_SUPPORTS 支持当前事务，如果没有事务则以非事务方式执行
+    4. PROPAGATION_REQUIRES_NEW 创建一个新事务与外层无关，内部事务执行外部事务被挂起
+    5. PROPAGATION_NOT_SUPPORTED 外层事务挂起，如果外层没有事务直接执行
+    6. PROPAGATION_NEVER 不能被拥有事务的方法调用
+    3. PROPAGATION_MANDATORY 不能被非事务的方法调用否则抛异常
+    7. PROPAGATION_NESTED 创建一个依赖外部事务的子事务，外层的提交回滚子事务也会提交回滚；如果没有类似1
     
     
 

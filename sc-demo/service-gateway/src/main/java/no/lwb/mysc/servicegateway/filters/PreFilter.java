@@ -18,6 +18,10 @@ public class PreFilter extends ZuulFilter {
         return "pre";
     }
 
+    /**
+     * 数字越高，level越高
+     * @return order
+     */
     @Override
     public int filterOrder() {
         return 6;

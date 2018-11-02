@@ -31,7 +31,7 @@ public class CustomerRepositoryTests {
         Customer customer = new Customer();
         customer.setDob(LocalDate.of(1904, 5, 14));
         customer.setFirstName("Albert");
-
+        customer.setId(123L);
         Customer saved = customerRepo.save(customer);
 
         assertThat(saved.getId()).isNotNull();

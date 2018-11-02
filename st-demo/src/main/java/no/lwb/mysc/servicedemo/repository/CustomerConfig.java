@@ -44,7 +44,7 @@ public class CustomerConfig extends JdbcConfiguration {
     DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().generateUniqueName(true)
                 .setType(EmbeddedDatabaseType.HSQL)
-                .addScript("create-customer-schema.sql")
+                .addScript("schema.sql")
                 .build();
     }
 }

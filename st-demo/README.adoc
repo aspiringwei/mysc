@@ -27,7 +27,39 @@
 === starter
 
 === 集成
-1. mysql 等数据库
+* mariadb 数据库
+```
+1. 依赖引入
+<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+</dependency>
+<!-- mybatis -->
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>LATEST</version>
+</dependency>
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter-test</artifactId>
+    <version>LATEST</version>
+    <scope>test</scope>
+</dependency>
+2. 配置
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      username: root
+      password: 123456
+      jdbc-url: jdbc:mariadb://localhost:3306/lwb
+  test:
+    database:
+      replace: none
+3. 测试验证
+```
 2. redis 等缓存
 3. ZooKeeper 等中间件
 4. activeMQ 等消息队列
@@ -41,3 +73,11 @@
 
 
 热部署 spring-cloaded
+
+
+
+=== 一些问题
+NoSuchMethodError PersistentPropertyPaths
+使用较新的spring-data-commons包
+
+maven包依赖规则：最先声明，最短引用优先
