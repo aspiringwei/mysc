@@ -1,11 +1,13 @@
 package no.lwb.mysc.servicedemo;
 
+import no.lwb.mysc.servicedemo.config.CustomerConfig;
 import no.lwb.mysc.servicedemo.repository.Customer;
 import no.lwb.mysc.servicedemo.repository.CustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @Transactional
-@ComponentScan(basePackages = "no.lwb.mysc.servicedemo.repository")
+@ContextConfiguration(classes = CustomerConfig.class)
 public class CustomerRepositoryTests {
 
     @Autowired
