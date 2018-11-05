@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 //import org.springframework.data.redis.listener.PatternTopic;
 //import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 //import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 

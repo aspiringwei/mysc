@@ -1,17 +1,17 @@
 package no.lwb.mysc.servicedemo;
 
 import no.lwb.mysc.servicedemo.repository.Customer;
-import no.lwb.mysc.servicedemo.repository.CustomerConfig;
 import no.lwb.mysc.servicedemo.repository.CustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -19,11 +19,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @Transactional
-@ContextConfiguration(classes = CustomerConfig.class)
+@ComponentScan(basePackages = "no.lwb.mysc.servicedemo.repository")
 public class CustomerRepositoryTests {
 
     @Autowired
-    CustomerRepository customerRepo;
+    private CustomerRepository customerRepo;
 
     @Test
     public void createSimpleCustomer() {

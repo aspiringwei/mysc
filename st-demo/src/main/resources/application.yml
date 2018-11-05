@@ -4,12 +4,13 @@ spring:
     database: 0
   ## datasource config
   datasource:
+    url: jdbc:mariadb://localhost:3306/lwb
     driver-class-name: org.mariadb.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       username: root
       password: 123456
-      jdbc-url: jdbc:mariadb://localhost:3306/lwb
+  #      jdbc-url: jdbc:mariadb://localhost:3306/lwb 不要这么配置，boot启动会找url默认会使用内置数据库
   ## default use memory database
   test:
     database:

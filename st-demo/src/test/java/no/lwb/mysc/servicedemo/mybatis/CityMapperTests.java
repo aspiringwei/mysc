@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -38,7 +39,8 @@ public class CityMapperTests {
 
     @Test
     public void findByStateTest() {
-        City city = cityMapper.findByState("有效");
+        City city = cityMapper.findByState("ca");
+        city = cityService.get(city);
         log.info(city);
     }
 
@@ -63,6 +65,18 @@ public class CityMapperTests {
         cityService.insert(city);
         city.setCountry("new");
         cityService.insertNew(city);
+    }
+
+    @Test
+    @Rollback(true)
+    public void insertCityServiceTest1() {
+        City city = new City();
+        city.setCountry("东京");
+        city.setState("有效");
+        city.setName("哇");
+        cityService.insert(city);
+        city.setCountry("nested");
+        cityService.insertNested(city);
     }
 
     @Test

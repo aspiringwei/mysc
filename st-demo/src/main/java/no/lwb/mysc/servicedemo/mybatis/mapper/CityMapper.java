@@ -16,6 +16,6 @@ public interface CityMapper {
     int insertCity(City city);
 
     @Delete("delete from city where state = #{state}")
-    int deleteCityByState(String state);
+    int deleteCityByState(@Param("state") String state);
 
 }
