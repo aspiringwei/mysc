@@ -2,8 +2,8 @@ package no.lwb.mysc.servicedemo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.data.jdbc.repository.config.JdbcConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,12 +19,12 @@ import javax.sql.DataSource;
  * @author WeiBin Lin
  */
 @Configuration
-@EnableJdbcRepositories
+@EnableJpaRepositories("no.lwb.mysc.servicedemo.repository")
 public class CustomerConfig extends JdbcConfiguration {
 
     /**
      * submit sql statements to the database
-     * @return
+     * @return NamedParameterJdbcOperations
      */
     @Bean
     NamedParameterJdbcOperations operations() {
@@ -33,7 +33,7 @@ public class CustomerConfig extends JdbcConfiguration {
 
     /**
      * 事务管理器
-     * @return
+     * @return PlatformTransactionManager
      */
     @Bean
     PlatformTransactionManager transactionManager() {

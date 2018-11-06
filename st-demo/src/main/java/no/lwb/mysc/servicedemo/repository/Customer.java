@@ -1,8 +1,10 @@
 package no.lwb.mysc.servicedemo.repository;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -12,9 +14,11 @@ import java.time.LocalDate;
  * @author WeiBin Lin
  */
 @Data
+@Entity
 public class Customer implements Serializable {
 
     @Id
+    @GeneratedValue
     Long id;
 
     String firstName;

@@ -3,6 +3,7 @@ package no.lwb.mysc.servicedemo.mybatis.service;
 import lombok.extern.log4j.Log4j2;
 import no.lwb.mysc.servicedemo.mybatis.domain.City;
 import no.lwb.mysc.servicedemo.mybatis.mapper.CityMapper;
+import no.lwb.mysc.servicedemo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,7 +25,7 @@ public class CityServiceImpl implements CityService {
     @Override
     public int insert(City city) {
         int count = cityMapper.insertCity(city);
-        log.info("updates:{}", count);
+        log.info("insert:{}", count);
         return count;
     }
 
@@ -38,7 +39,7 @@ public class CityServiceImpl implements CityService {
     @Override
     public int insertNew(City city) {
         int count = cityMapper.insertCity(city);
-        log.info("updates:{}", count);
+        log.info("insertNew:{}", count);
         return count;
     }
 
