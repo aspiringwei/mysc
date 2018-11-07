@@ -134,3 +134,18 @@ Release 表示 是正式的版本.
 RC stands for Release Candidate 表示 后选版本
 M stands for milestone 表示里程碑版本.
 一般而言, 稳定性由上而下, 依次降低.
+
+
+一些问题
+---
+- detached HEAD' 切换其他分支代码丢失
+    
+    You are in 'detached HEAD' state. You can look around, make experimental
+    changes and commit them, and you can discard any commits you make in this
+    state without impacting any branches by performing another checkout.
+    
+    If you want to create a new branch to retain commits you create, you may
+    do so (now or later) by using -b with the checkout command again. Example:
+    
+      git checkout -b <new-branch-name>
+      git checkout master merge <new-branch-name>
