@@ -148,4 +148,5 @@ M stands for milestone 表示里程碑版本.
     do so (now or later) by using -b with the checkout command again. Example:
     
       git checkout -b <new-branch-name>
-      git checkout master merge <new-branch-name>
+      git checkout master
+      git merge <new-branch-name>
