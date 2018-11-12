@@ -89,6 +89,7 @@ git 使用需要掌握的
 
 9. 常用命令
 	- 查看分支的合并图： git log --graph --pretty=oneline --abbrev-commit
+	- 查看所有分支的操作记录(包括commit和reset操作) git reflog
 	- 工作空间贮藏： git stash - Stash the changes in a dirty working directory away 把工作目录的修改隐藏起来，常用于突然在开发过程中需要修复 bug 的情况，需要把工作现场保护起来在修复bug然后再切回来
 		- git stash list 列出储藏
 		- git stash pop 恢复并删除隐藏
@@ -147,6 +148,9 @@ M stands for milestone 表示里程碑版本.
     If you want to create a new branch to retain commits you create, you may
     do so (now or later) by using -b with the checkout command again. Example:
     
+      
+      git reflog
+      git checkout ..
       git checkout -b <new-branch-name>
       git checkout master
       git merge <new-branch-name>
