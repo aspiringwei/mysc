@@ -1,4 +1,5 @@
-### [Redis](https://redis.io) 基于2.4.10 retrieve检索 
+### [Redis](https://redis.io) 基于4.0.11版本 retrieve检索 
+> 类似一个可持久化的memcached
 1. 数据结构
 1. Redis keys key的使用姿势
 1. Redis expires 过期策略
@@ -9,239 +10,62 @@
 
 #### [数据结构](https://redis.io/topics/data-types-intro) 
 
-1. strings 字符串 动态字符串 类似 java 的 ArrayList
+1. string 字符串 动态字符串 类似 java 的 ArrayList
     >二级制安全的字符串 Binary-safe strings. 
     
     1. 命令 help @string
     
         ```bash
-          APPEND key value
-          summary: Append a value to a key 将值附加到key中
-          since: 1.3.3
-        
-          DECR key
-          summary: Decrement the integer value of a key by one 递减1 [计数]
-          since: 0.07
-        
-          DECRBY key decrement
-          summary: Decrement the integer value of a key by the given number 递减给定值 [计数]
-          since: 0.07
-        
-          GET key
-          summary: Get the value of a key 获取key值
-          since: 0.07
-        
-          GETBIT key offset
-          summary: Returns the bit value at offset in the string value stored at key
-          since: 2.1.8
-        
-          GETSET key value
-          summary: Set the string value of a key and return its old value 设置key的string值并返回旧值
-          since: 0.091
-        
-          INCR key
-          summary: Increment the integer value of a key by one 递增1 [计数]
-          since: 0.07
-        
-          INCRBY key increment
-          summary: Increment the integer value of a key by the given number 递增给定值 [计数]
-          since: 0.07
-        
-          MGET key [key ...]
-          summary: Get the values of all the given keys 获取所有给定key的值 [批量]
-          since: 0.07
-        
-          MSET key value [key value ...]
-          summary: Set multiple keys to multiple values 给多个key设置多个值 [批量]
-          since: 1.001
-        
-          MSETNX key value [key value ...]
-          summary: Set multiple keys to multiple values, only if none of the keys exist 不存在任何key时, 给多个key设置多个值
-          since: 1.001
-        
-          SET key value
-          summary: Set the string value of a key 设置key值
-          since: 0.07
-        
-          SETBIT key offset value
-          summary: Sets or clears the bit at offset in the string value stored at key
-          since: 2.1.8
-        
-          SETEX key seconds value
-          summary: Set the value and expiration of a key 设置key的值和到期时间
-          since: 1.3.10
-        
-          SETNX key value
-          summary: Set the value of a key, only if the key does not exist 如果key不存在则设置值
-          since: 0.07
-        
-          SETRANGE key offset value
-          summary: Overwrite part of a string at key starting at the specified offset
-          since: 2.1.8
-        
-          STRLEN key
-          summary: Get the length of the value stored in a key 获取存储在key的值的长度
-          since: 2.1.2
-        
-          SUBSTR key start end
-          summary: Get a substring of the string stored at a key
-          since: 1.3.4
-
+           SETEX key seconds value 设置value并给key一个过期时间
+           SETNX key value 给key设置一个value,除非key不存在
         ```
         
     2. 使用场景
-        - string 类型存取、子字符串、长度 set/get/substr/strlen
-        - 计数器实现 incr/decr
-        - key指定过期时间 setex
-        - 不存在设值 setnx
+        - string 类型存取、子字符串、长度 set/get/getrange/strlen
+        - 计数器实现 incr/decr/incrby/decrby 原子操作
+        - key指定过期时间 setex key value seconds value/set key value [ex seconds] [px milliseconds] [NX|XX]
+        - 不存在设值 setnx key value
     
-2. hashes 散列/字典 类似 java 的 HashMap
+2. hash 散列/字典 类似 java 的 HashMap
     >which are maps composed of fields associated with values. 
     Both the field and the value are strings. 
     
     1. 命令 help @hash
     
         ```bash
-          HDEL key field
-          summary: Delete a hash field 删除hash字段
-          since: 1.3.10
-        
-          HEXISTS key field
-          summary: Determine if a hash field exists 确定hash字段是否存在
-          since: 1.3.10
-        
-          HGET key field
-          summary: Get the value of a hash field 获取hash字段的值
-          since: 1.3.10
-        
-          HGETALL key
-          summary: Get all the fields and values in a hash 获取hash中所有字段和值
-          since: 1.3.10
-        
-          HINCRBY key field increment
-          summary: Increment the integer value of a hash field by the given number 给hash字段的int值递增给定值
-          since: 1.3.10
-        
-          HKEYS key
-          summary: Get all the fields in a hash 获取hash中所有字段
-          since: 1.3.10
-        
-          HLEN key
-          summary: Get the number of fields in a hash 获取hash中字段数
-          since: 1.3.10
-        
-          HMGET key field [field ...]
-          summary: Get the values of all the given hash fields 获取所有给定hash字段的值
-          since: 1.3.10
-        
-          HMSET key field value [field value ...]
-          summary: Set multiple hash fields to multiple values
-          since: 1.3.8
-        
-          HSET key field value
-          summary: Set the string value of a hash field
-          since: 1.3.10
-        
-          HSETNX key field value
-          summary: Set the value of a hash field, only if the field does not exist
-          since: 1.3.8
-        
-          HVALS key
-          summary: Get all the values in a hash 获取hash中所有值
-          since: 1.3.10
-    
+           hset key field value
+           hget key field
+           hdel key field [field ...]
+           hmset key field value[field value ...]
         ```
     
     2. 使用场景 hash结构存储着结构化数据，方便操作指定字段
         
-3. lists 列表 类似 java 的 LinkedList 增删O(1)/查询O(n)
+3. list 列表基于链表实现 类似 java 的 LinkedList 增删O(1)/查询O(n)
     >按插入顺序排序的字符串元素集合，主要基于链表 collections of string elements sorted according to the order of insertion. 
     They are basically linked lists.  
     链表在头部 head 和尾部 tail 加入新元素的时间是常量固定的,查询慢，和数组相反  
     An important operation defined on Redis lists is the ability to pop elements. 
     1. 命令 help @list
     
-        ```bash
-           BLPOP key [key ...] timeout
-          summary: Remove and get the first element in a list, or block until one is available 删除并返回list的第一个元素或阻塞timeout直到一个元素有效的
-          since: 1.3.1
-        
-          BRPOP key [key ...] timeout
-          summary: Remove and get the last element in a list, or block until one is available 删除并返回list的最后一个元素或阻塞timeout直到一个元素有效的
-          since: 1.3.1
-        
-          BRPOPLPUSH source destination timeout
-          summary: Pop a value from a list, push it to another list and return it; or block until one is available 
-          since: 2.1.7
-        
-          LINDEX key index
-          summary: Get an element from a list by its index 通过索引index从列表list中获取元素
-          since: 0.07
-        
-          LINSERT key BEFORE|AFTER pivot value
-          summary: Insert an element before or after another element in a list 在指定元素的前或后插入一个元素
-          since: 2.1.1
-        
-          LLEN key
-          summary: Get the length of a list 获取list长度
-          since: 0.07
-        
-          LPOP key
-          summary: Remove and get the first element in a list 删除并获取列表中的第一个元素
-          since: 0.07
-        
-          LPUSH key value
-          summary: Prepend a value to a list 前置添加值到列表中
-          since: 0.07
-        
-          LPUSHX key value
-          summary: Prepend a value to a list, only if the list exists 只有list存在,才会前置添加值到list
-          since: 2.1.1
-        
-          LRANGE key start stop
-          summary: Get a range of elements from a list 从列表中获取一系列元素 分页查询
-          since: 0.07
-        
-          LREM key count value
-          summary: Remove elements from a list 从列表中删除元素
-          since: 0.07
-        
-          LSET key index value
-          summary: Set the value of an element in a list by its index 通过索引设置列表中元素的值
-          since: 0.07
-        
-          LTRIM key start stop
-          summary: Trim a list to the specified range 将列表修整到指定范围
-          since: 0.07
-        
-          RPOP key
-          summary: Remove and get the last element in a list 删除并返回list的最后一个元素
-          since: 0.07
-        
-          RPOPLPUSH source destination
-          summary: Remove the last element in a list, append it to another list and return it
-          since: 1.1
-        
-          RPUSH key value
-          summary: Append a value to a list
-          since: 0.07
-        
-          RPUSHX key value
-          summary: Append a value to a list, only if the list exists
-          since: 2.1.1
-
+        ```
+           lpush key value [value ...] 头部(左边)添加元素
+           rpush key value [value ...] 尾部(右边)添加元素
+           lrange key start stop
+           brpop key [key ...] timeout 阻塞规定时间返回
+           rpoplpush source destination 安全的队列/循环列表
+           brpoplpush source destination timeout
         ```
     2. 使用场景
-        - rpush/lpop 队列 右进左出; rpush/rpop 栈
-        - 消息队列
+        - rpush/lpop 队列 右进左出; rpush/rpop 堆栈
+        - 消息队列 
         - LRANGE 分页查询
-        - Remember the latest updates posted by users into a social network.
         - Communication between processes, using a consumer-producer pattern where the producer pushes items into a list, 
         and a consumer (usually a worker) consumes those items and executed actions. Redis has special list commands to 
         make this use case both more reliable and efficient.
-        - 例子： 朋友圈发布一条动态 lpush 到 list 中，查看最新10条动态 lrange 0 9
+        - 朋友圈发布一条动态 lpush 到 list 中，查看最新10条动态 lrange 0 9
         - 作为上限集合 capped collection. 使用 ltrim 命令记住保留最新N项，丢弃最老项
-        - Blocking operations on lists 
+        - Blocking operations on lists 阻塞操作 
             1. To push items into the list, producers call LPUSH.
             2. To extract / process items from the list, consumers call RPOP.
             3. polling 迫使 redis 和客户端执行无用的命令。redis 使用 BRPOP、BLPOP 来 block
@@ -254,77 +78,41 @@
             2) "do_something"
            ```
 
-4. sets 唯一无序字符串集合 类似 java 的 HashSet 
+4. set 唯一无序字符串集合 类似 java 的 HashSet 
     >不重复、无序的字符串元素的集合 collections of unique, unsorted(unordered) string elements. 
     
     1. 命令 help @set
         ```bash
-          SADD key member
-          summary: Add a member to a set 将成员添加到集合中
-          since: 0.07
-        
-          SCARD key
-          summary: Get the number of members in a set 获取集合中的成员数
-          since: 0.07
-        
-          SDIFF key [key ...]
-          summary: Subtract multiple sets 差集
-          since: 0.100
-        
-          SDIFFSTORE destination key [key ...]
-          summary: Subtract multiple sets and store the resulting set in a key 差集,存储结果在key目的地中
-          since: 0.100
-        
-          SINTER key [key ...]
-          summary: Intersect multiple sets 取交集
-          since: 0.07
-        
+          sadd key member [member ...] 将成员添加到集合中
+          SCARD key 获取集合中的成员数
+   
+          SDIFF key [key ...] 差集
+          SDIFFSTORE destination key [key ...] 差集,存储结果在key目标集合中
+          SINTER key [key ...] 取交集
           SINTERSTORE destination key [key ...]
-          summary: Intersect multiple sets and store the resulting set in a key
-          since: 0.07
-        
-          SISMEMBER key member
-          summary: Determine if a given value is a member of a set 确定给定值是否是集合的成员
-          since: 0.07
-        
-          SMEMBERS key
-          summary: Get all the members in a set 获取集合中所有成员
-          since: 0.07
-        
-          SMOVE source destination member
-          summary: Move a member from one set to another 将成员从一个集合移动到另一个集合
-          since: 0.091
-        
-          SPOP key
-          summary: Remove and return a random member from a set 随机删除一个元素并返回该元素
-          since: 0.101
-        
-          SRANDMEMBER key
-          summary: Get a random member from a set 从集合中获取随机成员
-          since: 1.001
-        
-          SREM key member
-          summary: Remove a member from a set 删除
-          since: 0.07
-        
-          SUNION key [key ...]
-          summary: Add multiple sets 并集
-          since: 0.091
-        
+          SUNION key [key ...] 并集
           SUNIONSTORE destination key [key ...]
-          summary: Add multiple sets and store the resulting set in a key
-          since: 0.091
+        
+          SISMEMBER key member 确定给定值是否是集合的成员
+          SMEMBERS key 获取集合中所有成员
+        
+          SMOVE source destination member 将成员从一个集合移动到另一个集合
+        
+          SPOP key 随机删除一个元素并返回该元素
+          SRANDMEMBER key 从集合中获取随机成员 不删除
+          SREM key member 删除成员
+        ```
 
     2. 场景
         - 全局去重
-        - 表示对象间关系，如实现标签
+        - 表示对象间关系，如实现用户标签
             ```
             ## news article ID 1000 is tagged with tags 1, 2, 5 and 77
             > sadd news:1000:tags 1 2 5 77
             (integer) 4
             ```
 
-5. sorted sets 有序集合 访问速度快，唯一性，不重复 跳表
+5. sorted_set 有序集合 基于跳表数据结构实现 访问速度快，唯一性，不重复
     > similar to Sets but where every string element is associated to a floating number value, called score. 
     The elements are always taken sorted by their score, so unlike Sets it is possible to retrieve a range of elements 
     (for example you may ask: give me the top 10, or the bottom 10).  
@@ -337,73 +125,23 @@
          the B string. A and B strings can't be equal since sorted sets only have unique elements.
     
     2. 命令 help @sorted_set
-        
+          
         ```bash
         
-          ZADD key score member
-          summary: Add a member to a sorted set, or update its score if it already exists 添加成员到有序集,如果存在则更新score
-          since: 1.1
-        
-          ZCARD key
-          summary: Get the number of members in a sorted set 获取已排序集中的成员数
-          since: 1.1
-        
-          ZCOUNT key min max
-          summary: Count the members in a sorted set with scores within the given values 计算具有给定值内分数的有序集合中的成员
-          since: 1.3.3
-        
-          ZINCRBY key increment member
-          summary: Increment the score of a member in a sorted set 增加已排序集中成员的分数
-          since: 1.1
-        
-          ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight] [AGGREGATE SUM|MIN|MAX]
-          summary: Intersect multiple sorted sets and store the resulting sorted set in a new key 
-          since: 1.3.10
-        
-          ZRANGE key start stop [WITHSCORES]
-          summary: Return a range of members in a sorted set, by index 无穷小-inf
-          since: 1.1
-        
-          ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]
-          summary: Return a range of members in a sorted set, by score
-          since: 1.050
-        
-          ZRANK key member
-          summary: Determine the index of a member in a sorted set 确定已排序集中成员的索引
-          since: 1.3.4
-        
-          ZREM key member
-          summary: Remove a member from a sorted set 删除元素
-          since: 1.1
-        
-          ZREMRANGEBYRANK key start stop
-          summary: Remove all members in a sorted set within the given indexes
-          since: 1.3.4
-        
-          ZREMRANGEBYSCORE key min max
-          summary: Remove all members in a sorted set within the given scores
-          since: 1.1
-        
-          ZREVRANGE key start stop [WITHSCORES]
-          summary: Return a range of members in a sorted set, by index, with scores ordered from high to low
-          since: 1.1
-        
-          ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]
-          summary: Return a range of members in a sorted set, by score, with scores ordered from high to low
-          since: 2.1.6
-        
-          ZREVRANK key member
-          summary: Determine the index of a member in a sorted set, with scores ordered from high to low 成员索引
-          since: 1.3.4
-        
-          ZSCORE key member
-          summary: Get the score associated with the given member in a sorted set 成员分数
-          since: 1.1
-        
-          ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight] [AGGREGATE SUM|MIN|MAX]
-          summary: Add multiple sorted sets and store the resulting sorted set in a new key
-          since: 1.3.10
-    
+           zadd key [NX|XX] [CH] [INCR] score member [score member ...] 添加成员到有序集,如果存在则更新score
+           zcard key 获取已排序集中的成员数
+           zcount key min max 统计具有给定值内分数的有序集合中的成员
+           zincrby key increment member 增加已排序集中成员的分数
+           
+           zscore key member 返回成员分数
+           zrank key member 返回排序集中成员的索引
+           zrange key start stop [WITHSCORES] 通过索引返回排序集的范围成员
+           zrangebyscore key min max [WITHSCORES] [LIMIT offset count] - Return a range of members in a sorted set, by score
+     
+           zrem key member - Remove a member from a sorted set
+           zremrangebyrank key start top - Remove all members in a sorted set within the given indexes
+           zremrangebyscore key min max - Remove all members in a sorted set within the given scores
+           
         ```
 
     3. 应用场景
@@ -466,7 +204,7 @@ that Redis saves the date at which a key will expire).
 
 
 #### 安装使用
-1. 官网下载安装包 wget url 或 yum install -y redis
+1. 官网下载安装包 wget url 、make或 yum install -y redis
 3. 配置 redis-config
 4. [安装问题](https://blog.csdn.net/wzygis/article/details/51705559)
 
